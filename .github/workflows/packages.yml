@@ -39,7 +39,7 @@ concurrency:
 
 jobs:
   build:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     env:
       GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
     strategy:
@@ -320,7 +320,7 @@ jobs:
         compression-level: 0
 
   upload-and-trigger:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     if: github.event_name != 'pull_request'
     needs: build
     env:
