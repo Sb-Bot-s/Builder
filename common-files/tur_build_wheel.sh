@@ -155,10 +155,21 @@ tur_build_wheel() {
 	pushd $TERMUX_PKG_BUILDDIR
 
 	# Build wheel if needed
-	if [ "$TUR_AUTO_BUILD_WHEEL" != "false" ]; then
-		pip install wheel
-		python setup.py bdist_wheel
-	fi
+	# Build wheel if needed
+    if [ "$TUR_AUTO_BUILD_WHEEL" != "false" ]; then
+    # Herramientas necesarias para construir wheels
+    pip install build wheel setuptools
+
+        if [ -f pyproject.toml ]; then
+            echo "[TUR] Detected pyproject.toml, using python -m build..."
+            python -m build --wheel --no-isolation
+        elif [ -f setup.py ]; then
+            echo "[TUR] Detected setup.py, using bdist_wheel..."
+            python setup.py bdist_wheel
+        else
+            termux_error_exit "No build backend found (missing pyproject.toml and setup.py)"
+       fi
+    fi
 
 	# Install auditwheel for build-pip
 	build-pip install 'auditwheel<6'
