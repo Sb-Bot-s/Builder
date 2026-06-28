@@ -13,4 +13,3 @@ TERMUX_PKG_PYTHON_COMMON_BUILD_DEPS="setuptools wheel"
 TUR_AUTO_BUILD_WHEEL=true
 
 source $TERMUX_SCRIPTDIR/common-files/tur_build_wheel.sh
-
